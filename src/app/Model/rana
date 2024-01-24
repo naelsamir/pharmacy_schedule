@@ -1,0 +1,355 @@
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, numberAttribute } from '@angular/core';
+interface Pharmacist {
+  id: number;
+  name: string;
+  gender: 'male' | 'female';
+  isPharmacist:boolean;
+  weekendCountSahar: number;
+  inVacation: boolean;
+  vacationStart?: Date | any;
+  vacationEnd?: Date | any;
+  totalSaharNumber:number;
+  weekDayCountSahar:number;
+  vacationDays?:number;
+  scheduleDetails?: ScheduleDetails;
+}
+interface ScheduleDetails {
+  weekendCountSahar: number;
+  inVacation: boolean;
+  vacationStart?: Date | any;
+  vacationEnd?: Date | any;
+  totalSaharNumber: number;
+  weekDayCountSahar: number;
+  vacationDays?: number;
+}
+
+interface Shift {
+  shift_id: number;
+  start_time: Date;
+  end_time: Date;
+}
+
+interface DailySchedule {
+  date: Date;
+  month:number;
+  shift: Shift;
+  pharmacists: Pharmacist[];
+}
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit
+ {
+  title = 'pharmacy-schedule';
+ constructor(private datePipe: DatePipe){}
+ weeDaysCount =0;
+ maxNumberOfTotalShifts=0
+ numberofDays=0
+ pharmacists: Pharmacist[] = [
+  { id: 1, name: 'Nael Samir', gender: 'male' , weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0, inVacation: false, isPharmacist:true},
+  { id: 2, name: 'Hossam', gender: 'male' , weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:true},
+  { id: 3, name: 'Manahel', gender: 'female' , weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:true},
+  { id: 4, name: 'Ali', gender: 'male' , weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:true},
+  { id: 5, name: 'Layla Ghamra', gender: 'female' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:true},
+  { id: 6, name: 'Kafel', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:true},
+  { id: 7, name: 'Abd El salam', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:true},
+  { id: 8, name: 'Jozef', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:false},
+  { id: 9, name: 'Ibrahim', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:false},
+  { id: 10, name: 'Ahmed Farouk', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:false},
+  { id: 11, name: 'Hussien', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:false},
+  { id: 12, name: 'Yousef', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:true, isPharmacist:true,vacationStart:this.datePipe.transform("2023-12-01", 'yyyy-MM-dd'), vacationEnd:this.datePipe.transform("2023-12-15", 'yyyy-MM-dd')},
+  { id: 13, name: 'Omar', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:true},
+  { id: 14, name: 'Taher', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:false, isPharmacist:true},
+  { id: 15, name: 'El Gohary', gender: 'male' ,weekendCountSahar:0,weekDayCountSahar:0,totalSaharNumber:0,inVacation:true, isPharmacist:true,vacationStart:this.datePipe.transform("2023-12-15", 'yyyy-MM-dd'), vacationEnd:this.datePipe.transform("2023-12-30", 'yyyy-MM-dd')},
+];
+
+  ngOnInit(): void {
+ 
+    this.weeDaysCount =  this.getWeekdaysInCurrentMonth();
+    this.genereate();
+  }
+
+  getWeekdaysInCurrentMonth(): number {
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    
+    // Set the date to the first day of the month
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+   
+    // Set the date to the last day of the month
+    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
+ 
+    this.numberofDays =lastDayOfMonth.getDate()
+    let weekdaysCount = 0;
+
+    // Iterate over each day in the month
+    for (let currentDate = firstDayOfMonth; currentDate <= lastDayOfMonth; currentDate.setDate(currentDate.getDate() + 1)) {
+      // Check if the current day is a weekday (Sunday to Thursday)
+      if (currentDate.getDay() >= 0 && currentDate.getDay() <= 4) {
+        weekdaysCount++;
+      }
+    }
+
+    return weekdaysCount;
+  }
+  
+ 
+  
+   shifts: Shift[] = [
+    { shift_id: 1, start_time: new Date('1970-01-01T09:00:00'), end_time: new Date('1970-01-01T12:00:00') },
+    { shift_id: 2, start_time: new Date('1970-01-01T00:00:00'), end_time: new Date('1970-01-01T07:00:00') },
+  ];
+
+   isWeekday(date: Date): boolean {
+    const dayOfWeek = date.getDay();
+    return dayOfWeek >= 0 && dayOfWeek <= 4; // Monday to Friday
+  }
+  
+   isWeekend(date: Date): boolean {
+    const dayOfWeek = date.getDay();
+    return dayOfWeek === 5 || dayOfWeek === 6; // Sunday or Saturday
+  }
+
+  // getOverTimeSechdule(pharmacists: Pharmacist[], shifts: Shift[]): DailySchedule[] {
+  //   const monthlySchedule: DailySchedule[] = [];
+  //   const daysInMonth = 30; // You may adjust based on the actual number of days in the month
+  
+  
+  //   for (let day = 1; day <= daysInMonth; day++) {
+  //     const dateShift1 = new Date(`2023-12-${day} ${shifts[0].start_time.getHours()}:${shifts[0].start_time.getMinutes()}`);
+     
+  //     //console.log(dateShift2, isWeekday, isWeekend)
+  //     const pickNextElement = this.pickPharmacist2genders();
+  //     const numberOfElementsToPick = 2; // Adjust as needed
+  //     const pickedElements = Array.from({ length: numberOfElementsToPick }, () => pickNextElement());
+  //    // const pickNextElementMale = this.phatmacistsMaleOnly()
+  //     //let pickedElementsMale = Array.from({ length: numberOfElementsToPick }, () => pickNextElementMale());
+  //     const shift1Pharmacists = pickedElements
+      
+  //     monthlySchedule.push({ date: dateShift1, shift: shifts[0], pharmacists: shift1Pharmacists });
+  //    // monthlySchedule.push({ date: dateShift2, shift: shifts[1], pharmacists: shift2Pharmacists });
+  
+  //   }
+  
+  //   return monthlySchedule; 
+  // }
+
+  
+  generateMonthlySchedule(pharmacists: Pharmacist[], shifts: Shift[]): DailySchedule[] {
+    const monthlySchedule: DailySchedule[] = [];
+    const daysInMonth = this.numberofDays; // You may adjust based on the actual number of days in the month
+  //console.log(this.numberofDays)
+  
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateShift1 = new Date(`2023-12-${day} ${shifts[0].start_time.getHours()}:${shifts[0].start_time.getMinutes()}`);
+      const dateShift2 = new Date(`2023-12-${day} ${shifts[1].start_time.getHours()}:${shifts[1].start_time.getMinutes()}`);
+     //this is the 5efara shift
+      if(this.isWeekend(dateShift1)){
+      
+        const pickNextElementMale = this.pickMalePharmacistInWeekend(dateShift1,null)
+        let pickedElementsMale = pickNextElementMale();
+    
+        const pickNextElementMale2 = this.pickMalePharmacistInWeekend(dateShift1,pickedElementsMale)
+        let pickedElementsMale2 = pickNextElementMale2();
+      
+        const shift2Pharmacists = [pickedElementsMale, pickedElementsMale2];
+     
+        if( shift2Pharmacists[0] != undefined){
+          shift2Pharmacists[0].weekendCountSahar +=1;
+          shift2Pharmacists[0].totalSaharNumber +=1;
+        }
+        if(shift2Pharmacists[1] != undefined){
+          shift2Pharmacists[1].weekendCountSahar +=1;
+          shift2Pharmacists[1].totalSaharNumber +=1;
+        }
+        
+        monthlySchedule.push({ date: dateShift2, shift: shifts[1], pharmacists: shift2Pharmacists , month:dateShift2.getMonth()});
+
+      }else{
+        // if 5efara weekday
+        const pickNextElementMale = this.phatmacistsMaleOnly(dateShift1, null)
+        let pickedElementsMale = pickNextElementMale()
+        const pickNextElementMale2 = this.phatmacistsMaleOnly(dateShift1,pickedElementsMale)
+        let pickedElementsMale2= pickNextElementMale2()
+        const shift2Pharmacists = [pickedElementsMale, pickedElementsMale2];
+      
+        if(shift2Pharmacists[0] != undefined){
+          shift2Pharmacists[0].totalSaharNumber +=1;
+          shift2Pharmacists[0].weekDayCountSahar +=1;
+        }
+        if(shift2Pharmacists[1] != undefined){
+          shift2Pharmacists[1].totalSaharNumber +=1;
+          shift2Pharmacists[1].weekDayCountSahar +=1;
+        }
+        monthlySchedule.push({ date: dateShift2, shift: shifts[1], pharmacists: shift2Pharmacists , month:dateShift2.getMonth()});
+      }
+    }
+    this.pharmacistData(monthlySchedule);
+    return monthlySchedule;
+  }
+  
+  
+  monthlySchedule:any[] =[]
+  overtimeSechdule:DailySchedule[] =[]
+  
+  genereate(){
+   this.monthlySchedule = this.generateMonthlySchedule(this.pharmacists, this.shifts);
+  //  this.overtimeSechdule = this.getOverTimeSechdule(this.pharmacists, this.shifts);
+  }
+  PhramacistSchedule:Pharmacist[] =[]
+  pharmacistData(schedules:DailySchedule[]){
+   
+  this.PhramacistSchedule = Array.from(
+    new Set(schedules.flatMap(schedule => schedule.pharmacists).map(pharmacist => {
+      if (pharmacist.inVacation && pharmacist.vacationStart && pharmacist.vacationEnd) {
+        const startDate = new Date(pharmacist.vacationStart);
+        const endDate = new Date(pharmacist.vacationEnd);
+        const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+        const daysDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        // Set the vacationDays property
+        pharmacist.vacationDays = daysDifference;
+      }
+
+      return pharmacist;
+    })),
+  );
+  
+  }
+  // formatScheduleString(schedule: any): string {
+  //   const shift1 = schedule.pharmacists.slice(0, 2).map((p:any) => p ? p.name : 'N/A').join(', ');
+  //   const shift2 = schedule.pharmacists.slice(2).map((p:any) => p ? p.name : 'N/A').join(', ');
+
+  //   return `Shift ${schedule.shift.shift_id} - Pharmacists: ${shift1} | ${shift2}`;
+  // }
+
+
+  originalArray: any[] = this.pharmacists;
+  pickedElement: any;
+  copyarray= [...this.originalArray];
+
+  originalMaleOnly:any[] = this.pharmacists.filter((p) => p.gender === 'male');
+  originalMaleOnlyWeekend:any[] = this.pharmacists.filter((p) => p.gender === 'male');
+  copyMalearr = [...this.originalMaleOnly];
+  copyMalearrWeekday = [...this.originalMaleOnly];
+  
+  //pic from the start of the array
+  phatmacistsMaleOnly(shiftDate:any,previousPharmcaist:any){
+    const pickElement = (): any =>  {
+      if (this.originalMaleOnly.length === 0) {
+        this.copyMalearrWeekday.sort((a, b) => a.weekendCountSahar
+        - b.weekendCountSahar);
+        // Stop the loop if the array is empty
+        this.originalMaleOnly = [...this.copyMalearrWeekday]
+    }
+    if(this.originalMaleOnly.length > 0){
+      // const pickedElement = this.originalMaleOnly[randomIndex];
+      let pickedElement = this.originalMaleOnly.shift();
+      //check if both are technicians 
+      
+      if(previousPharmcaist && !previousPharmcaist?.isPharmacist && pickedElement && !pickedElement?.isPharmacist){
+       
+        // console.log("2 Technichians", shiftDate, previousPharmcaist, pickedElement);
+        let pharmacistArray =this.originalMaleOnly.filter(pharmcist=> pharmcist.isPharmacist)
+        const pharmacistWithLeastSahar = pharmacistArray.reduce((minPharmacist, currentPharmacist) => {
+          return currentPharmacist.totalSaharNumber < minPharmacist.totalSaharNumber ? currentPharmacist : minPharmacist;
+        }, pharmacistArray[0]); 
+        this.originalMaleOnly.unshift(pickedElement);
+        pickedElement = pharmacistWithLeastSahar;
+         this.originalMaleOnly = this.originalMaleOnly.filter(pharmacist => pharmacist !== pharmacistWithLeastSahar);
+         
+      }
+     
+      if (pickedElement.inVacation) {
+        const shiftDateFormatted: any = this.datePipe.transform(shiftDate, 'yyyy-MM-dd');
+        const inVacation =
+          shiftDateFormatted >= pickedElement.vacationStart && shiftDateFormatted <= pickedElement.vacationEnd;
+        if (inVacation) {
+          // Pick another pharmacist by recursively calling pickElement
+          return pickElement();
+        }
+      }
+      return pickedElement;
+    };
+  }
+   
+
+  // Return the pickElement function itself
+  return pickElement;
+}
+
+
+  pickMalePharmacistInWeekend(shiftDate: any, previousPharmcaist:any) {
+    
+    const pickElement = (): any => {
+      if (this.originalMaleOnlyWeekend.length === 0) {
+        // Stop the loop if the array is empty
+        this.copyMalearr.sort((a, b) => b.totalSaharNumber - a.totalSaharNumber);
+        console.log(this.copyMalearr)
+        this.originalMaleOnlyWeekend = [...this.copyMalearr];
+      }
+      if(this.originalMaleOnlyWeekend.length > 0){
+      const randomIndex = this.originalMaleOnlyWeekend.length - 1;
+      let pickedElement = this.originalMaleOnlyWeekend[randomIndex];
+  
+      
+   // Remove the picked element from the copy
+   this.originalMaleOnlyWeekend.splice(randomIndex, 1);
+   if(previousPharmcaist && !previousPharmcaist?.isPharmacist && pickedElement && !pickedElement?.isPharmacist){
+       
+    // console.log("2 Technichians", shiftDate, previousPharmcaist, pickedElement);
+    let pharmacistArray =this.originalMaleOnlyWeekend.filter(pharmcist=> pharmcist.isPharmacist)
+    const pharmacistWithLeastSahar = pharmacistArray.reduce((minPharmacist, currentPharmacist) => {
+      return currentPharmacist.totalSaharNumber < minPharmacist.totalSaharNumber ? currentPharmacist : minPharmacist;
+    }, pharmacistArray[0]); 
+    this.originalMaleOnlyWeekend.push(pickedElement);
+    pickedElement = pharmacistWithLeastSahar;
+     this.originalMaleOnlyWeekend = this.originalMaleOnlyWeekend.filter(pharmacist => pharmacist !== pharmacistWithLeastSahar);
+     
+  }
+      if (pickedElement.inVacation) {
+        const shiftDateFormatted: any = this.datePipe.transform(shiftDate, 'yyyy-MM-dd');
+        const inVacation =
+          shiftDateFormatted >= pickedElement.vacationStart && shiftDateFormatted <= pickedElement.vacationEnd;
+  
+        if (inVacation) {
+          // Pick another pharmacist by recursively calling pickElement
+          return pickElement();
+        }
+      }
+      return pickedElement;
+    };
+    }
+    // Return the pickElement function itself
+    return pickElement;
+  }
+  
+  pickPharmacist2genders() {
+    // Make a copy of the original array
+    if (this.originalArray.length === 0) {
+            // Stop the loop if the array is empty
+            this.originalArray = [...this.copyarray]
+        }
+  
+    
+    const pickElement = () => {
+      const randomIndex = Math.floor(Math.random() * this.originalArray.length);
+      const pickedElement = this.originalArray[randomIndex];
+  
+      // Remove the picked element from the copy
+      this.originalArray.splice(randomIndex, 1);
+  
+      return pickedElement;
+    };
+  
+    // Return the pickElement function itself
+    return pickElement;
+  }
+  
+  
+}

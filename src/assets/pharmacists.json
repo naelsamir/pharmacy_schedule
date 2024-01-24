@@ -1,0 +1,342 @@
+ [
+    {
+      "id": 1,
+      "name": "Nael Samir",
+      "gender": "male",
+      "monthlySchedules": [
+       {
+          "id": 0,
+          "month": 0,
+          "ScheduleDetails": 
+            {
+              
+              "weekendCountSahar": 0,
+              "inVacation": true,
+              "vacationStart":"2024-01-01",
+              "vacationEnd": "2024-02-15",
+              "totalSaharNumber": 0,
+              "weekDayCountSahar": 0,
+              "vacationDays": 0
+            }
+           
+          
+        }
+      
+      ],
+      "isPharmacist": true
+    },
+    {
+        "id": 2,
+        "name": "Hossam",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": true,
+                 "vacationStart": "2024-01-15",
+                 "vacationEnd": "2024-01-30",
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": true
+      },
+      {
+        "id": 3,
+        "name": "Ali",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": true
+      },
+      {
+        "id": 4,
+        "name": "Kafel",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails":
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": false
+      },
+      {
+        "id": 5,
+        "name": "Abd El salam",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": false
+      },
+      {
+        "id": 6,
+        "name": "Jozef",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": true
+      },
+      {
+        "id": 7,
+        "name": "Ibrahim",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": true,
+                 "vacationStart": "2024-01-15",
+                 "vacationEnd": "2024-01-30",
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": true
+      },
+      {
+        "id": 8,
+        "name": "Ahmed Farouk",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": true
+      },
+      {
+        "id": 9,
+        "name": "Hussien",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": true
+      },
+      {
+        "id": 10,
+        "name": "Yousef",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": true
+      },
+      {
+        "id": 11,
+        "name": "Omar",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": true
+      },
+      {
+        "id": 12,
+        "name": "Taher",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": false
+      },
+      {
+        "id": 13,
+        "name": "El Gohary",
+        "gender": "male",
+        "monthlySchedules": [
+          {
+             "id": 0,
+             "month": 0,
+             "ScheduleDetails": 
+               {
+                 
+                 "weekendCountSahar": 0,
+                 "inVacation": false,
+                 "vacationStart": null,
+                 "vacationEnd": null,
+                 "totalSaharNumber": 0,
+                 "weekDayCountSahar": 0,
+                 "vacationDays": 0
+               }
+              
+             
+           }
+         
+         ],
+        "isPharmacist": false
+      }
+  ]
+
+   
